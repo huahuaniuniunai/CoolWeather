@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".parcelable.Two"></activity>
+        <activity android:name=".parcelable.Two"/>
         <activity android:name=".parcelable.One" />
         <activity android:name=".OkhttpActivity" />
         <activity android:name=".ThreadActivity" />
