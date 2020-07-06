@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".ThirdActivity">
 
-    <com.example.test.TitleLayout
+    <com.example.test.layoutInflater.TitleLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

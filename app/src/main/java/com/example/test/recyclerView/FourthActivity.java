@@ -1,4 +1,4 @@
-package com.example.test;
+package com.example.test.recyclerView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,8 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.test.recyclerview.Fruit;
-import com.example.test.recyclerview.RecyclerViewDemo;
+import com.example.test.R;
 
 import java.util.ArrayList;
 import java.util.List;

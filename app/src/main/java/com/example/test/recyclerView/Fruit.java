@@ -1,4 +1,4 @@
-package com.example.test.recyclerview;
+package com.example.test.recyclerView;
 
 public class Fruit {
     private int imageId;

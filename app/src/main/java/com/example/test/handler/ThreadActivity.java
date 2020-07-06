@@ -1,4 +1,4 @@
-package com.example.test;
+package com.example.test.handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +11,8 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.example.test.R;
 
 public class ThreadActivity extends AppCompatActivity {
     private Handler handler1;

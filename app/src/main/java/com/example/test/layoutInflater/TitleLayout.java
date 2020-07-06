@@ -1,4 +1,4 @@
-package com.example.test;
+package com.example.test.layoutInflater;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,6 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+
+import com.example.test.R;
 
 public class TitleLayout extends LinearLayout implements View.OnClickListener {
     public TitleLayout(Context context, @Nullable AttributeSet attrs) {
