@@ -12,6 +12,7 @@ import android.widget.Button;
 
 import com.example.test.fragment.FragmentActivity;
 import com.example.test.handler.ThreadActivity;
+import com.example.test.litePal.CreateDatabase;
 import com.example.test.news.NewsActivity;
 import com.example.test.okHttp.OkhttpActivity;
 import com.example.test.parcelable.One;
@@ -49,6 +50,9 @@ public class SecondaryActivity extends AppCompatActivity implements View.OnClick
 
         Button button9 = findViewById(R.id.b_9);
         button9.setOnClickListener(this);
+
+        Button button10 = findViewById(R.id.b_10);
+        button10.setOnClickListener(this);
     }
 
     @Override
@@ -107,6 +111,9 @@ public class SecondaryActivity extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.b_9:
                 One.actionStart();
+                break;
+            case R.id.b_10:
+                CreateDatabase.actionStart();
                 break;
             default:
                 break;
