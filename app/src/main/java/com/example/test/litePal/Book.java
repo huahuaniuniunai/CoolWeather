@@ -1,7 +1,6 @@
 package com.example.test.litePal;
 
 import org.litepal.crud.LitePalSupport;
-import org.litepal.exceptions.DataSupportException;
 
 /**
  * 新建表：就相当于新建java bean，并在litepal.xml中list下添加完整包名，新增表则版本号也变。

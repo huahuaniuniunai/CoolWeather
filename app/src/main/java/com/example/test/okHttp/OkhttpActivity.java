@@ -22,6 +22,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+// https://github.com/square/okhttp
 public class OkhttpActivity extends AppCompatActivity {
 
     @Override
@@ -46,21 +47,21 @@ public class OkhttpActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    //创建OkHttpClient对象
+                    // 创建OkHttpClient对象
                     OkHttpClient client = new OkHttpClient();
-                    //创建Request
+                    // 创建Request
                     Request request = new Request.Builder()
-                            .url(url)//访问连接
+                            .url(url)// 访问连接
 //                            .post(RequestBody.create(MediaType.parse(""), "{}"))
-                            .get()
+                            .get()// 默认是get请求，可以省略
                             .build();
-                    //创建Call对象
+                    // 创建Call对象
                     Call call = client.newCall(request);
-                    //通过execute()方法获得请求响应的Response对象
+                    // 通过execute()方法获得请求响应的Response对象
                     Response response = call.execute();
                     if (response.isSuccessful()) {
-                        //处理网络请求的响应，处理UI需要在UI线程中处理
-                        //...
+                        // 处理网络请求的响应，处理UI需要在UI线程中处理
+                        // ...
                         String data =  response.body().string();
                         try {
                             JSONObject jsonObject = new JSONObject(data);
@@ -84,7 +85,7 @@ public class OkhttpActivity extends AppCompatActivity {
         OkHttpClient okHttpClient = new OkHttpClient();
         final Request request = new Request.Builder()
                 .url(url)
-                .get()//默认就是GET请求，可以不写
+                .get()// 默认是GET请求，可以不写
                 .build();
         Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {

@@ -17,6 +17,7 @@ import org.litepal.crud.LitePalSupport;
 
 import java.util.List;
 
+// https://github.com/guolindev/LitePal
 public class CreateDatabase extends AppCompatActivity implements View.OnClickListener {
 
     public static final String TAG = "CreateDatabase";
