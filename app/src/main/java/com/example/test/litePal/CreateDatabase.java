@@ -61,7 +61,7 @@ public class CreateDatabase extends AppCompatActivity implements View.OnClickLis
                 LitePal.getDatabase();
                 break;
 
-            case R.id.create:
+            case R.id.create: {
                 Book bookCreate = new Book();
                 bookCreate.setName("The Da Vinci Code");
                 bookCreate.setAuthor("Dan Brown");
@@ -69,26 +69,29 @@ public class CreateDatabase extends AppCompatActivity implements View.OnClickLis
                 bookCreate.setPrice(16.96);
                 bookCreate.save();
                 break;
+            }
 
             case R.id.delete:
                 LitePal.deleteAll(Book.class, "price < ?", "15");
                 break;
 
-            case R.id.update:
+            case R.id.update: {
                 Book bookUpdate = new Book();
                 bookUpdate.setPrice(14.95);
                 bookUpdate.updateAll("name = ? and author = ?", "The Da Vinci Code", "Dan Brown");
                 break;
+            }
 
-            case R.id.retrieve:
+            case R.id.retrieve: {
                 List<Book> books = LitePal.findAll(Book.class);
                 for (Book book : books) {
                     Log.d("TAG", book.getName());
                     Log.d("TAG", book.getAuthor());
-                    Log.d("TAG", book.getPages()+"");
-                    Log.d("TAG", book.getPrice()+"");
+                    Log.d("TAG", book.getPages() + "");
+                    Log.d("TAG", book.getPrice() + "");
                 }
                 break;
+            }
         }
     }
 }

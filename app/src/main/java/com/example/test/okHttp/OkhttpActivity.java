@@ -11,10 +11,15 @@ import android.widget.Button;
 
 import com.example.test.R;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
+import java.io.StringReader;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -63,16 +68,15 @@ public class OkhttpActivity extends AppCompatActivity {
                         // 处理网络请求的响应，处理UI需要在UI线程中处理
                         // ...
                         String data =  response.body().string();
-                        try {
-                            JSONObject jsonObject = new JSONObject(data);
+                        /**
+                         * JSON的JSONObject解析方式
+                         */
+                        parseJSONWithJSONObject(data);
 
-                            String title = jsonObject.optString("title");
-                            String img = jsonObject.optString("img");
-
-                            Log.d("okhttp", "同步response:" + data);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        /**
+                         * XML的Pull解析方式
+                         */
+                        parseXMLWithPull(data);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -110,5 +114,70 @@ public class OkhttpActivity extends AppCompatActivity {
     public static void actionStart(Context context) {
         Intent intent = new Intent(context, OkhttpActivity.class);
         context.startActivity(intent);
+    }
+
+    /**
+     * XML 解析
+     * @param xmlData
+     */
+    public void parseXMLWithPull(String xmlData) {
+        try {
+            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+            XmlPullParser xmlPullParser = factory.newPullParser();
+            xmlPullParser.setInput(new StringReader(xmlData));
+            int eventType = xmlPullParser.getEventType();
+            String id = "";
+            String name = "";
+            String version = "";
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                String nodeName = xmlPullParser.getName();
+                switch (eventType) {
+                    case XmlPullParser.START_TAG: {
+                        if ("id".equals(nodeName)) {
+                            id = xmlPullParser.nextText();
+                        } else if ("name".equals(nodeName)) {
+                            name = xmlPullParser.nextText();
+                        } else if ("version".equals(nodeName)) {
+                            version = xmlPullParser.nextText();
+                        }
+                        break;
+                    }
+                    case XmlPullParser.END_DOCUMENT: {
+                        if ("app".equals(nodeName)) {
+                            Log.d("demo", "id id" + id);
+                            Log.d("demo", "name is" + name);
+                            Log.d("demo", "version is" + version);
+                        }
+                        break;
+                    }
+                    default:
+                        break;
+                }
+                eventType = xmlPullParser.next();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * JSON 解析
+     * @param jsonData
+     */
+    public void parseJSONWithJSONObject(String jsonData) {
+        try {
+            JSONArray jsonArray = new JSONArray(jsonData);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                String id = jsonObject.getString("id");
+                String name = jsonObject.getString("name");
+                String version = jsonObject.getString("version");
+                Log.d("demo", "id is" + id);
+                Log.d("demo", "name is" + name);
+                Log.d("demo", "version is" + version);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
