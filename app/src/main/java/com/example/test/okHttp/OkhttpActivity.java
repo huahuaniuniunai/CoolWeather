@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.test.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,6 +22,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -47,7 +50,7 @@ public class OkhttpActivity extends AppCompatActivity {
         });
     }
 
-    public void getSyn(final String url) {
+    private void getSyn(final String url) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -77,6 +80,11 @@ public class OkhttpActivity extends AppCompatActivity {
                          * XML的Pull解析方式
                          */
                         parseXMLWithPull(data);
+
+                        /**
+                         * 使用JSON的GSON解析方式
+                         */
+                        parseJSONWithGSON(data);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -85,7 +93,7 @@ public class OkhttpActivity extends AppCompatActivity {
         }).start();
     }
 
-    public void getAsyn(String url) {
+    private void getAsyn(String url) {
         OkHttpClient okHttpClient = new OkHttpClient();
         final Request request = new Request.Builder()
                 .url(url)
@@ -120,7 +128,7 @@ public class OkhttpActivity extends AppCompatActivity {
      * XML 解析
      * @param xmlData
      */
-    public void parseXMLWithPull(String xmlData) {
+    private void parseXMLWithPull(String xmlData) {
         try {
             XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
             XmlPullParser xmlPullParser = factory.newPullParser();
@@ -164,7 +172,7 @@ public class OkhttpActivity extends AppCompatActivity {
      * JSON 解析
      * @param jsonData
      */
-    public void parseJSONWithJSONObject(String jsonData) {
+    private void parseJSONWithJSONObject(String jsonData) {
         try {
             JSONArray jsonArray = new JSONArray(jsonData);
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -178,6 +186,20 @@ public class OkhttpActivity extends AppCompatActivity {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * GSON 解析
+     * @param jsonData
+     */
+    private void parseJSONWithGSON(String jsonData) {
+        Gson gson = new Gson();
+        List<App> appList = gson.fromJson(jsonData, new TypeToken<List<App>>(){}.getType());
+        for (App app : appList) {
+            Log.d("demo", "id is" + app.getId());
+            Log.d("demo", "name is" + app.getName());
+            Log.d("demo", "version is" + app.getVersion());
         }
     }
 }
