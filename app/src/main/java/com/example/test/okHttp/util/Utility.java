@@ -1,0 +1,57 @@
+package com.example.test.okHttp.util;
+
+import android.text.TextUtils;
+
+import com.example.test.okHttp.db.City;
+import com.example.test.okHttp.db.Province;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+
+public class Utility {
+    /**
+     * 解析和处理服务器返回的省级数据，并保存到表Province中
+     * @param response
+     * @return
+     */
+    public static boolean handleProvinceResponse(String response) {
+        if (!TextUtils.isEmpty(response)){
+            try {
+                JSONArray allProvinces = new JSONArray(response);
+                for (int i = 0; i < allProvinces.length(); i++) {
+                    JSONObject object = allProvinces.getJSONObject(i);
+                    Province province = new Province();
+                    province.setProvinceName(object.getString("name"));
+                    province.setProvinceCode(object.getInt("id"));
+                    province.save();
+                }
+                return true;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    public static boolean handleCityResponse(String response, int provinceId) {
+        if (!TextUtils.isEmpty(response)) {
+            try {
+                JSONArray allCities = new JSONArray(response);
+                for (int i = 0; i < allCities.length(); i++) {
+                    JSONObject object = allCities.getJSONObject(i);
+                    City city = new City();
+                    city.setCityName(object.getString("name"));
+                    city.setCityCode(object.getInt("id"));
+                    city.setProvinceId(provinceId);
+                    city.save();
+                }
+                return true;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+}
