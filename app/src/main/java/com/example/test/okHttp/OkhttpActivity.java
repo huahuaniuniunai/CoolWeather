@@ -151,7 +151,7 @@ public class OkhttpActivity extends AppCompatActivity {
                     }
                     case XmlPullParser.END_DOCUMENT: {
                         if ("app".equals(nodeName)) {
-                            Log.d("demo", "id id" + id);
+                            Log.d("demo", "id is" + id);
                             Log.d("demo", "name is" + name);
                             Log.d("demo", "version is" + version);
                         }
